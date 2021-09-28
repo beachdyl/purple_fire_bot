@@ -3,8 +3,8 @@ const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('calendar')
-		.setDescription('Get a handy link to our calendar!'),
+		.setName('meeting')
+		.setDescription('Need to remind someone where to find meeting info?'),
 	async execute(interaction) {
 		const exampleEmbed = new MessageEmbed()
 			.setColor('#253d8e')
@@ -19,11 +19,11 @@ module.exports = {
 		const row = new MessageActionRow()
 			.addComponents(
 				new MessageButton()
-					.setLabel('Open')
+					.setLabel('Open the Calendar')
 					.setURL('https://calendar.google.com/calendar/embed?src=5r67hb19jke4qk7jkeftov91f8%40group.calendar.google.com&ctz=America%2FNew_York')
 					.setStyle('LINK'),
 			);
-		await interaction.reply({ephemeral: false, embeds: [exampleEmbed], components: [row] });
+		await interaction.reply({content: 'Hey there! :wave:\nI heard you had a question about an upcoming meeting, which is awesome! Thanks for being involved.\nPurple Fire Robotics has a very handy calendar which lists the meeting you\'re talking about, as well as all of our other events and more!\nGive this button a click and tell me if this answers your question:\n', ephemeral: false, embeds: [], components: [row] });
 	},
 };
 
