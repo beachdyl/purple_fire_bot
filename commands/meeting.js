@@ -7,7 +7,7 @@ module.exports = {
 		.setDescription('Need to remind someone where to find meeting info?'),
 	async execute(interaction) {
 		const exampleEmbed = new MessageEmbed()
-			.setColor('#253d8e')
+			.setColor('#532d8e')
 			.setTitle('Purple Fire Robotics Calendar')
 			.setURL('https://calendar.google.com/calendar/embed?src=5r67hb19jke4qk7jkeftov91f8%40group.calendar.google.com&ctz=America%2FNew_York')
 			.setAuthor('Purple Fire Robotics', 'https://i.ibb.co/cDrSdS5/PF-Flame.png', 'https://purplefire.org')
