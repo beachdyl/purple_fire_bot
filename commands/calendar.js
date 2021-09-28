@@ -23,7 +23,7 @@ module.exports = {
 					.setURL('https://calendar.google.com/calendar/embed?src=5r67hb19jke4qk7jkeftov91f8%40group.calendar.google.com&ctz=America%2FNew_York')
 					.setStyle('LINK'),
 			);
-		await interaction.reply({ content: 'Pong!', ephemeral: false, embeds: [exampleEmbed], components: [row] });
+		await interaction.reply({ephemeral: false, embeds: [exampleEmbed], components: [row] });
 	},
 };
 
