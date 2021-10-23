@@ -1,6 +1,22 @@
 const fs = require('fs');
 const readline = require('readline');
-const {google} = require('googleapis');
+const { google } = require('googleapis');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+
+const csvWriter = createCsvWriter({
+    path: 'google/events.csv',
+    header: [
+        { id: 'status', name: 'Status' },
+        { id: 'title', name: 'Title' },
+        { id: 'description', name: 'Description' },
+        { id: 'color', name: 'Color' },
+        { id: 'location', name: 'Location' },
+        { id: 'startTime', name: 'Start Time' },
+        { id: 'endTime', name: 'End Time' },
+        { id: 'transparency', name: 'Transparency' },
+        { id: 'id', name: 'ID' },
+    ]
+});
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/calendar.events.readonly'];
@@ -82,10 +98,9 @@ function listEvents(auth) {
     if (err) return console.log('The API returned an error: ' + err);
     const events = res.data.items;
     if (events.length) {
-      console.log('Upcoming 10 events:');
       events.map((event, i) => {
         const start = event.start.dateTime || event.start.date;
-        console.log(`${start} - ${event.summary}`);
+        
       });
     } else {
       console.log('No upcoming events found.');
