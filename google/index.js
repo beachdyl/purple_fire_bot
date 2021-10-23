@@ -6,19 +6,19 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const csvWriter = createCsvWriter({
     path: 'google/events.csv',
     header: [
-        { id: 'status', name: 'Status' },
-        { id: 'title', name: 'Title' },
-        { id: 'description', name: 'Description' },
-        { id: 'color', name: 'Color' },
-        { id: 'location', name: 'Location' },
-        { id: 'startTime', name: 'Start Time' },
-        { id: 'endTime', name: 'End Time' },
-        { id: 'transparency', name: 'Transparency' },
-        { id: 'id', name: 'ID' },
-    ]
+        { id: 'status' },
+        { id: 'title' },
+        { id: 'description' },
+        { id: 'location' },
+        { id: 'start' },
+        { id: 'end' },
+        { id: 'transparency' },
+        { id: 'id' },
+    ],
+	append: true
 });
 
-// If modifying these scopes, delete token.json.
+// If modifying scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/calendar.events.readonly'];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
@@ -83,8 +83,7 @@ function getAccessToken(oAuth2Client, callback) {
 }
 
 /**
- * Lists the next 10 events on the user's primary calendar.
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
+ * Lists the events on the calendar.
  */
 function listEvents(auth) {
   const calendar = google.calendar({version: 'v3', auth});
@@ -98,10 +97,24 @@ function listEvents(auth) {
     if (err) return console.log('The API returned an error: ' + err);
     const events = res.data.items;
     if (events.length) {
-      events.map((event, i) => {
-        const start = event.start.dateTime || event.start.date;
-        
-      });
+		fs.unlinkSync('google/events.csv') ;
+		console.log('Old file deleted.');
+		events.map((event, i) => {
+			const start = event.start.dateTime || event.start.date;
+			const end = event.end.dateTime || event.end.date;
+			const data = [{
+				status: event.status,
+				title: event.summary,
+				description: event.description,
+				location: event.location,
+				start: start,
+				end: end,
+				transparency: event.transparency,
+				id: event.id
+			}];	
+			csvWriter.writeRecords(data);
+			console.log(`Event "${event.summary}" written to file.`);
+		});
     } else {
       console.log('No upcoming events found.');
     }
