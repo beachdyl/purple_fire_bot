@@ -9,7 +9,6 @@ const csvWriter = createCsvWriter({
         { id: 'status' },
         { id: 'title' },
         { id: 'description' },
-        { id: 'color' },
         { id: 'location' },
         { id: 'start' },
         { id: 'end' },
@@ -19,7 +18,7 @@ const csvWriter = createCsvWriter({
 	append: true
 });
 
-// If modifying these scopes, delete token.json.
+// If modifying scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/calendar.events.readonly'];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
@@ -107,7 +106,6 @@ function listEvents(auth) {
 				status: event.status,
 				title: event.summary,
 				description: event.description,
-				color: event.colorId,
 				location: event.location,
 				start: start,
 				end: end,
