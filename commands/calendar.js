@@ -17,8 +17,9 @@ module.exports = {
 				.on('data', (data) => events.push(data))
 				.on('end', () => setTimeout(resolve, 1));
 		});
-
+		let i = 0;
 		for (event of events) {
+			if (i > 9) break;
 			if (event[0] === 'cancelled') continue;
 			const _embed = new MessageEmbed()
 				.setColor(`${event[7]}`)
@@ -35,6 +36,7 @@ module.exports = {
 				_embed.addField('Description', event[3]);
 			}
 			event_embeds.push(_embed);
+			i++;
 		}
 		const row = new MessageActionRow()
 			.addComponents(
