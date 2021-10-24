@@ -6,16 +6,6 @@ const events = [];
 const event_embeds = [];
 
 
-/* for (let i = 0; i < 5; i++) {
-	const embed = new MessageEmbed()
-		.setColor('#532d8e')
-		.setThumbnail('https://i.ibb.co/cDrSdS5/PF-Flame.png');
-	console.log(events);
-	//embed.setTitle(events.at(i).at(1));
-	//embed.addField('Description', events.at(i).at(2));
-	embeds.push(embed);
-} */
-
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('calendar')
@@ -29,14 +19,16 @@ module.exports = {
 		});
 
 		for (event of events) {
+			if (event[0] === 'cancelled') continue;
 			const _embed = new MessageEmbed()
-				.setColor('#532d8e')
+				.setColor(event[7])
 				.setThumbnail('https://i.ibb.co/cDrSdS5/PF-Flame.png')
-				.setTitle(event[1])
-				.setDescription(`${event[4]} - ${event[5]}`)
-				.addField('Location', event[3]);
-			if (event[2]) {
-				_embed.addField('Description', event[2]);
+				.setTitle(event[2])
+				.setDescription(`${event[5]} - ${event[6]}`)
+				.addField('Section', event[1], true)
+				.addField('Location', event[4], true);
+			if (event[3]) {
+				_embed.addField('Description', event[3]);
 			}
 			event_embeds.push(_embed);
 		}
