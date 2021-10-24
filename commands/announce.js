@@ -8,39 +8,23 @@ const event_embeds = [];
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('calendar')
-		.setDescription('Get a list of upcoming meetings and events!')
-		.addStringOption(option =>
-			option
+		.setName('announce')
+		.setDescription('Make an announcement in an announcements channel.')
+		.addSubcommand(subcommand =>
+			subcommand
 				.setName('section')
-				.setDescription('Show only events for one section.')
-				.setRequired(false)
-				.addChoice('Combat', 'Combat')
-				.addChoice('VEXU', 'VEX U')
-				.addChoice('Research & Development', 'Research & Development')
-				.addChoice('250 Pound', '250 Pound')
-				.addChoice('Events', 'Events')
-				.addChoice('Fundraising', 'Fundraising')
-				.addChoice('Outreach', 'Outreach')
-				.addChoice('Leadership', 'Leadership')
-				.addChoice('Workshops', 'Workshops')
-				.addChoice('Open Lab Hours', 'Open Lab Hours')
-				.addChoice('General', 'General')),
-
+				.setDescription('A specific section\'s calendar')
+				.addUserOption(option => option.setName('section').setDescription('The desired section'))),
 	async execute(interaction) {
-		const section = interaction.options.getString('section');
-
 		await new Promise((resolve) => {
 			fs.createReadStream('google/events.csv')
 				.pipe(csv({ headers: false }))
 				.on('data', (data) => events.push(data))
 				.on('end', () => setTimeout(resolve, 1));
 		});
-
 		let i = 0;
 		for (event of events) {
 			if (i > 9) break;
-			if (section !== event[1] && section !== '') continue;
 			if (event[0] === 'cancelled') continue;
 			const _embed = new MessageEmbed()
 				.setColor(`${event[7]}`)
@@ -61,15 +45,13 @@ module.exports = {
 			event_embeds.push(_embed);
 			i++;
 		}
-
 		const row = new MessageActionRow()
 			.addComponents(
 				new MessageButton()
-					.setLabel('Open the Calendar')
+					.setLabel('View the Calendar')
 					.setURL('https://calendar.google.com/calendar/embed?src=5r67hb19jke4qk7jkeftov91f8%40group.calendar.google.com&ctz=America%2FNew_York')
 					.setStyle('LINK'),
 			);
-
 		await interaction.reply({ephemeral: false, embeds: event_embeds, components: [row] });
 	},
 };

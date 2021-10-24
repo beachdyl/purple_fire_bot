@@ -30,6 +30,7 @@ const color_table = {
 	'Outreach': '#01eaf5',
 	'Fundraising': '#2ff501',
 	'General': '#532d8e',
+	'Open Lab Hours': '#532d8e',
 	'Workshops': '#f58e01',
 	'Leadership': '#2c2c2c'
 };
@@ -106,7 +107,7 @@ function listEvents(auth) {
   calendar.events.list({
     calendarId: '5r67hb19jke4qk7jkeftov91f8@group.calendar.google.com',
     timeMin: (new Date()).toISOString(),
-    maxResults: 40,
+    maxResults: 100,
     singleEvents: true,
     orderBy: 'startTime',
   }, (err, res) => {
@@ -132,6 +133,8 @@ function listEvents(auth) {
 			const title = event.summary.slice(event.summary.indexOf(":")+2);
 			let section = event.summary.slice(0,event.summary.indexOf(":"));
 			if (section === 'R&D') { section = 'Research & Development' };
+			
+			if (section === 'General' && title.slice(0,9) === 'Open Lab') { section = 'Open Lab Hours' };
 			
 			const data = [{
 				status: event.status,
