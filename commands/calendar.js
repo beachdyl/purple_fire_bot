@@ -10,20 +10,32 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('calendar')
 		.setDescription('Get a list of upcoming meetings and events!')
-		.addSubcommand(subcommand =>
-			subcommand
+		.addStringOption(option =>
+			option
 				.setName('section')
-				.setDescription('A specific section\'s calendar')
-				.addUserOption(option => option.setName('section').setDescription('The desired section'))),
+				.setRequired(false)
+				.addChoice('Combat', 'combat')
+				.addChoice('VEXU', 'vexu')
+				.addChoice('R&D', 'rnd')
+				.addChoice('250 Pound', '250pound')
+				.addChoice('Events', 'events')
+				.addChoice('Fundraising', 'fundraising')
+				.addChoice('Outreach', 'outreach')
+				.addChoice('Leadership', 'leadership')),
+
 	async execute(interaction) {
+		const section = interaction.options.getString('section');
+
 		await new Promise((resolve) => {
 			fs.createReadStream('google/events.csv')
 				.pipe(csv({ headers: false }))
 				.on('data', (data) => events.push(data))
 				.on('end', () => setTimeout(resolve, 1));
 		});
+
 		let i = 0;
 		for (event of events) {
+			if (section !== event[1] && section !== '') continue;
 			if (i > 9) break;
 			if (event[0] === 'cancelled') continue;
 			const _embed = new MessageEmbed()
@@ -45,6 +57,7 @@ module.exports = {
 			event_embeds.push(_embed);
 			i++;
 		}
+
 		const row = new MessageActionRow()
 			.addComponents(
 				new MessageButton()
@@ -52,6 +65,7 @@ module.exports = {
 					.setURL('https://calendar.google.com/calendar/embed?src=5r67hb19jke4qk7jkeftov91f8%40group.calendar.google.com&ctz=America%2FNew_York')
 					.setStyle('LINK'),
 			);
+
 		await interaction.reply({ephemeral: false, embeds: event_embeds, components: [row] });
 	},
 };
