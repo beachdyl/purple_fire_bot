@@ -2,10 +2,11 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const csv = require('csv-parser');
 const fs = require('fs');
-const events = [];
-const embeds = [];
-//const embed = [];
-
+let events = [];
+//const embeds = [];
+let title = '';
+let desc = 'yes';
+let _embed;
 
 /* for (let i = 0; i < 5; i++) {
 	const embed = new MessageEmbed()
@@ -25,19 +26,14 @@ module.exports = {
 		fs.createReadStream('google/events.csv')
 			.pipe(csv({headers: false}))
 			.on('data', (data) => events.push(data))
-			.on('end', () => {
-				//for (let i = 0; i < 1; i++) {
-					let embed = new MessageEmbed()
-						.setColor('#532d8e')
-						//.setThumbnail('https://i.ibb.co/cDrSdS5/PF-Flame.png')
-						//console.log(events.at(i)[2]);
-						.setTitle(events.at(0)[1])
-						.setDescription('No more')
-						.addField('Description2', '${events.at(i)[2])} ');
-					//embed.push(embed);
-				}
-			//});
-			);
+		await new Promise((resolve) => {setTimeout(resolve, 300)});
+		let _embed = new MessageEmbed()
+					.setColor('#532d8e')
+					// .setThumbnail('https://i.ibb.co/cDrSdS5/PF-Flame.png')
+					.setTitle(events[0][1])
+					.setDescription(events[0][1])
+					.addField('Description2', '${events.at(i)[2])} ');
+		console.log(events.at(0));
 		const row = new MessageActionRow()
 			.addComponents(
 				new MessageButton()
@@ -45,7 +41,7 @@ module.exports = {
 					.setURL('https://calendar.google.com/calendar/embed?src=5r67hb19jke4qk7jkeftov91f8%40group.calendar.google.com&ctz=America%2FNew_York')
 					.setStyle('LINK'),
 			);
-		await interaction.reply({ephemeral: false, embeds: [embed], components: [row] });
+		await interaction.reply({ephemeral: false, embeds: [_embed], components: [row] });
 	},
 };
 
