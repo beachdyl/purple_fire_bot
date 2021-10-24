@@ -134,7 +134,7 @@ function listEvents(auth) {
 			let section = event.summary.slice(0,event.summary.indexOf(":"));
 			if (section === 'R&D') { section = 'Research & Development' };
 			
-			if (section === 'General' && title.slice(0,9) === 'Open Lab') { section = 'Open Lab Hours' };
+			if (section === 'General' && title.slice(0,8) === 'Open Lab') { section = 'Open Lab Hours' };
 			
 			const data = [{
 				status: event.status,

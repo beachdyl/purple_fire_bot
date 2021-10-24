@@ -5,6 +5,35 @@ const fs = require('fs');
 const events = [];
 const event_embeds = [];
 
+const channel_table = {
+	'VEX U': '#vexu-announcements',
+	'Combat': '#combat-announcements',
+	'250 Pound': '#250-pound-announcements',
+	'Research & Development': '#r-and-d-announcements',
+	'Events': '#events-announcements',
+	'Outreach': '#outreach-announcements',
+	'Fundraising': '#fundraising-announcements',
+	'Whole Club': '#announcements',
+	'University Team': '#univteam-announcements',
+	'Open Lab Hours': '#lab-access',
+	'Workshops': '#workshops',
+	'Leadership': '#leadership-announcements'
+};
+
+const color_table = {
+	'VEX U': '#fff908',
+	'Combat': '#f50101',
+	'250 Pound': '#f50101',
+	'Research & Development': '#f501ed',
+	'Events': '#f58e01',
+	'Outreach': '#01eaf5',
+	'Fundraising': '#2ff501',
+	'Whole Club': '#532d8e',
+	'University Team': '#532d8e',
+	'Open Lab Hours': '#532d8e',
+	'Workshops': '#f58e01',
+	'Leadership': '#2c2c2c'
+};
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -12,20 +41,21 @@ module.exports = {
 		.setDescription('Make an announcement in an announcements channel.')
 		.addStringOption(option =>
 			option
-				.setName('section')
-				.setDescription('Show only events for one section.')
-				.setRequired(false)
+				.setName('channel')
+				.setDescription('Which channel would you like to announce in?')
+				.setRequired(true)
+				.addChoice('Whole Club', 'Whole Club')
 				.addChoice('Combat', 'Combat')
 				.addChoice('VEX U', 'VEX U')
 				.addChoice('Research & Development', 'Research & Development')
 				.addChoice('250 Pound', '250 Pound')
 				.addChoice('Events', 'Events')
 				.addChoice('Fundraising', 'Fundraising')
+				.addChoice('University Team', 'University Team')
 				.addChoice('Outreach', 'Outreach')
-				.addChoice('Leadership', 'Leadership')
 				.addChoice('Workshops', 'Workshops')
-				.addChoice('Open Lab Hours', 'Open Lab Hours')
-				.addChoice('General', 'General')),
+				.addChoice('Leadership', 'Leadership')
+),
 				
 	async execute(interaction) {
 		await new Promise((resolve) => {

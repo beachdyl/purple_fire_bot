@@ -29,7 +29,7 @@ module.exports = {
 		const section = interaction.options.getString('section');
 		const events = [];
 		const event_embeds = [];
-
+		console.log(section);
 		await new Promise((resolve) => {
 			fs.createReadStream('google/events.csv')
 				.pipe(csv({ headers: false }))
@@ -71,7 +71,7 @@ module.exports = {
 			);
 
 		if (event_embeds.length === 0) 
-			await interaction.reply('No events found!');
+			await interaction.reply({content:'This section has no events coming up.', components: [row]});
 		else
 			await interaction.reply({ephemeral: false, embeds: event_embeds, components: [row] });
 	},
