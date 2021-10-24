@@ -12,9 +12,9 @@ module.exports = {
 		.setDescription('Get a list of upcoming meetings and events!')
 		.addSubcommand(subcommand =>
 			subcommand
-				.setName('Section')
+				.setName('section')
 				.setDescription('A specific section\'s calendar')
-				.addUserOption(option => option.setName('Section').setDescription('The desired section'))),
+				.addUserOption(option => option.setName('section').setDescription('The desired section'))),
 	async execute(interaction) {
 		await new Promise((resolve) => {
 			fs.createReadStream('google/events.csv')
@@ -48,7 +48,7 @@ module.exports = {
 		const row = new MessageActionRow()
 			.addComponents(
 				new MessageButton()
-					.setLabel('Open')
+					.setLabel('View the Calendar')
 					.setURL('https://calendar.google.com/calendar/embed?src=5r67hb19jke4qk7jkeftov91f8%40group.calendar.google.com&ctz=America%2FNew_York')
 					.setStyle('LINK'),
 			);
