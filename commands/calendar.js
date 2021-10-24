@@ -40,7 +40,7 @@ module.exports = {
 		let i = 0;
 		for (event of events) {
 			if (i > 9) break;
-			if ((section !== event[1] && section !== null) && section !== 'General') continue;
+			if (section !== event[1] && section !== null && event[1] !== 'General') continue;
 			if (event[0] === 'cancelled') continue;
 			const _embed = new MessageEmbed()
 				.setColor(`${event[7]}`)
