@@ -28,15 +28,15 @@ module.exports = {
 				.on('end', () => setTimeout(resolve, 1));
 		});
 
-		for (event in events) {
+		for (event of events) {
 			const _embed = new MessageEmbed()
 				.setColor('#532d8e')
 				.setThumbnail('https://i.ibb.co/cDrSdS5/PF-Flame.png')
 				.setTitle(event[1])
-				.setDescription('${event[4]} - ${event[5]')
+				.setDescription(`${event[4]} - ${event[5]}`)
 				.addField('Location', event[3]);
 			if (event[2]) {
-				_embed.addField('Description:', event[2]);
+				_embed.addField('Description', event[2]);
 			}
 			event_embeds.push(_embed);
 		}
