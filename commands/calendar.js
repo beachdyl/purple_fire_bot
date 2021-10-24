@@ -56,7 +56,7 @@ module.exports = {
 				_embed.addField('Location', event[4], true);
 			}
 			if (event[3]) {
-				_embed.addField('Description', event[3]);
+				//_embed.addField('Description', event[3]);
 			}
 			event_embeds.push(_embed);
 			i++;
