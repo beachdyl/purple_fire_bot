@@ -130,7 +130,7 @@ function listEvents(auth) {
 				event.end.dateTime.slice(14,16);
 			
 			const title = event.summary.slice(event.summary.indexOf(":")+2);
-			const section = event.summary.slice(0,event.summary.indexOf(":"));
+			let section = event.summary.slice(0,event.summary.indexOf(":"));
 			if (section === 'R&D') { section = 'Research & Development' };
 			
 			const data = [{

@@ -27,7 +27,9 @@ module.exports = {
 				.setTitle(event[2])
 				.setDescription(`${event[5]} - ${event[6]}`);
 			if (event[1]) {
-				_embed.addField('Section', event[1], true);
+				_embed.setAuthor(event[1], 'https://i.ibb.co/cDrSdS5/PF-Flame.png', 'https://purplefire.org')
+			} else {
+				_embed.setAuthor('Purple Fire Robotics', 'https://i.ibb.co/cDrSdS5/PF-Flame.png', 'https://purplefire.org')
 			}
 			if (event[4]) {
 				_embed.addField('Location', event[4], true);

@@ -11,8 +11,8 @@ module.exports = {
 			.setTitle('Hey there, I\'m Robo-Kathryn!')
 			.setAuthor('Purple Fire Robotics', 'https://i.ibb.co/cDrSdS5/PF-Flame.png', 'https://purplefire.org')
 			.setDescription('I am here to help out with a few of the simple tasks around here. I\'m still learning, so please, have some patience.')
-			.addField('Developer', 'This bot is being developed by Dylan Bowerman (@beachdyl),', true)
-			.addField('Problem?', 'Did I make a mistake? No worries, just tell Dylan.', true)
+			.addField('Developer', 'This bot is being developed by Dylan Bowerman (@beachdyl) and Dylan MacAllaster.', true)
+			.addField('Problem?', 'Did I make a mistake? No worries, just tell a Dylan.', true)
 			.addField('Similarity', 'Robo-Kathryn is a work of fiction. Any similarity to actual persons, living or dead, is purely coincidental.', false)
 			.setThumbnail('https://i.ibb.co/cDrSdS5/PF-Flame.png')
 			.setTimestamp();
