@@ -24,6 +24,7 @@ const color_table = {
 	'VEX U': '#fff908',
 	'Combat': '#f50101',
 	'250 Pound': '#f50101',
+	'Research & Development': '#f501ed',
 	'R&D': '#f501ed',
 	'Events': '#f58e01',
 	'Outreach': '#01eaf5',
@@ -128,8 +129,9 @@ function listEvents(auth) {
 				event.end.dateTime.slice(11,13) + ':' +
 				event.end.dateTime.slice(14,16);
 			
-			const section = event.summary.slice(0,event.summary.indexOf(":"))
-			const title = event.summary.slice(event.summary.indexOf(":")+2)
+			const title = event.summary.slice(event.summary.indexOf(":")+2);
+			const section = event.summary.slice(0,event.summary.indexOf(":"));
+			if (section === 'R&D') { section = 'Research & Development' };
 			
 			const data = [{
 				status: event.status,
