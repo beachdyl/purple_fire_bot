@@ -15,14 +15,16 @@ module.exports = {
 				.setName('section')
 				.setDescription('Show only events for one section.')
 				.setRequired(false)
-				.addChoice('Combat', 'combat')
-				.addChoice('VEXU', 'vexu')
-				.addChoice('Research & Development', 'rnd')
-				.addChoice('250 Pound', '250pound')
-				.addChoice('Events', 'events')
-				.addChoice('Fundraising', 'fundraising')
-				.addChoice('Outreach', 'outreach')
-				.addChoice('Leadership', 'leadership')),
+				.addChoice('Combat', 'Combat')
+				.addChoice('VEXU', 'VEX U')
+				.addChoice('Research & Development', 'Research & Development')
+				.addChoice('250 Pound', '250 Pound')
+				.addChoice('Events', 'Events')
+				.addChoice('Fundraising', 'Fundraising')
+				.addChoice('Outreach', 'Outreach')
+				.addChoice('Leadership', 'Leadership')
+				.addChoice('Workshops', 'Workshops')
+				.addChoice('General', 'General')),
 
 	async execute(interaction) {
 		const section = interaction.options.getString('section');
