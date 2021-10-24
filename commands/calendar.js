@@ -2,8 +2,6 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const csv = require('csv-parser');
 const fs = require('fs');
-const events = [];
-const event_embeds = [];
 
 
 module.exports = {
@@ -29,6 +27,8 @@ module.exports = {
 
 	async execute(interaction) {
 		const section = interaction.options.getString('section');
+		const events = [];
+		const event_embeds = [];
 
 		await new Promise((resolve) => {
 			fs.createReadStream('google/events.csv')
