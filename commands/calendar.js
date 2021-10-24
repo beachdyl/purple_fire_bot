@@ -13,10 +13,11 @@ module.exports = {
 		.addStringOption(option =>
 			option
 				.setName('section')
+				.setDescription('Show only events for one section.')
 				.setRequired(false)
 				.addChoice('Combat', 'combat')
 				.addChoice('VEXU', 'vexu')
-				.addChoice('R&D', 'rnd')
+				.addChoice('Research & Development', 'rnd')
 				.addChoice('250 Pound', '250pound')
 				.addChoice('Events', 'events')
 				.addChoice('Fundraising', 'fundraising')
@@ -61,7 +62,7 @@ module.exports = {
 		const row = new MessageActionRow()
 			.addComponents(
 				new MessageButton()
-					.setLabel('View the Calendar')
+					.setLabel('Open the Calendar')
 					.setURL('https://calendar.google.com/calendar/embed?src=5r67hb19jke4qk7jkeftov91f8%40group.calendar.google.com&ctz=America%2FNew_York')
 					.setStyle('LINK'),
 			);
