@@ -7,16 +7,30 @@ const csvWriter = createCsvWriter({
     path: 'google/events.csv',
     header: [
         { id: 'status' },
+		{ id: 'section' },
         { id: 'title' },
         { id: 'description' },
         { id: 'location' },
         { id: 'start' },
         { id: 'end' },
+		{ id: 'color' },
         { id: 'transparency' },
         { id: 'id' },
     ],
 	append: true
 });
+
+const color_table = {
+	'VEX U': '#fff908',
+	'Combat': '#f50101',
+	'250 Pound': '#f50101',
+	'R&D': '#f501ed',
+	'Events': '#f58e01',
+	'Outreach': '#01eaf5',
+	'Fundraising': '#2ff501',
+	'General': '#532d8e',
+	'Leadership': '#2c2c2c'
+};
 
 // If modifying scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/calendar.events.readonly'];
@@ -89,27 +103,42 @@ function listEvents(auth) {
   const calendar = google.calendar({version: 'v3', auth});
   calendar.events.list({
     calendarId: '5r67hb19jke4qk7jkeftov91f8@group.calendar.google.com',
-    timeMin: (new Date() - 3600000).toISOString(),
-	timeMax: (new Date() + 86400000).toISOString(),
-    maxResults: 10,
+    timeMin: (new Date()).toISOString(),
+    maxResults: 40,
     singleEvents: true,
     orderBy: 'startTime',
   }, (err, res) => {
     if (err) return console.log('The API returned an error: ' + err);
     const events = res.data.items;
     if (events.length) {
-		fs.unlinkSync('google/events.csv') ;
-		console.log('Old file deleted.');
+		try {fs.unlinkSync('google/events.csv');}
+		catch (error) {}
+		console.log('Old file deleted or didn\'t exist.');
+		
 		events.map((event, i) => {
-			const start = event.start.dateTime || event.start.date;
-			const end = event.end.dateTime || event.end.date;
+			const start =
+				event.start.dateTime.slice(5,7) + '/' +
+				event.start.dateTime.slice(8,10) + ' ' +
+				event.start.dateTime.slice(11,13) + ':' +
+				event.start.dateTime.slice(14,16);
+			const end = 
+				event.end.dateTime.slice(5,7) + '/' +
+				event.end.dateTime.slice(8,10) + ' ' +
+				event.end.dateTime.slice(11,13) + ':' +
+				event.end.dateTime.slice(14,16);
+			
+			const section = event.summary.slice(0,event.summary.indexOf(":"))
+			const title = event.summary.slice(event.summary.indexOf(":")+2)
+			
 			const data = [{
 				status: event.status,
-				title: event.summary,
+				section: section,
+				title: title,
 				description: event.description,
 				location: event.location,
 				start: start,
 				end: end,
+				color: color_table[section],
 				transparency: event.transparency,
 				id: event.id
 			}];	
