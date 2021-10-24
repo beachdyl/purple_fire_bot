@@ -39,11 +39,7 @@ module.exports = {
 
 		let i = 0;
 		for (event of events) {
-			if (i > 9) {
-				if (event_embeds.length !== 0) break;
-				interaction.reply('No events found!');
-				break;
-			}
+			if (i > 9) break;
 			if (section !== event[1] && section !== '') continue;
 			if (event[0] === 'cancelled') continue;
 			const _embed = new MessageEmbed()
@@ -74,7 +70,10 @@ module.exports = {
 					.setStyle('LINK'),
 			);
 
-		await interaction.reply({ephemeral: false, embeds: event_embeds, components: [row] });
+		if (event_embeds.length === 0) 
+			await interaction.reply('No events found!');
+		else
+			await interaction.reply({ephemeral: false, embeds: event_embeds, components: [row] });
 	},
 };
 
