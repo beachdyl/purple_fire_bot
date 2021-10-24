@@ -29,6 +29,7 @@ const color_table = {
 	'Outreach': '#01eaf5',
 	'Fundraising': '#2ff501',
 	'General': '#532d8e',
+	'Workshops': '#f58e01',
 	'Leadership': '#2c2c2c'
 };
 
