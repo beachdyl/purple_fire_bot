@@ -10,11 +10,23 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('announce')
 		.setDescription('Make an announcement in an announcements channel.')
-		.addSubcommand(subcommand =>
-			subcommand
+		.addStringOption(option =>
+			option
 				.setName('section')
-				.setDescription('A specific section\'s calendar')
-				.addUserOption(option => option.setName('section').setDescription('The desired section'))),
+				.setDescription('Show only events for one section.')
+				.setRequired(false)
+				.addChoice('Combat', 'Combat')
+				.addChoice('VEX U', 'VEX U')
+				.addChoice('Research & Development', 'Research & Development')
+				.addChoice('250 Pound', '250 Pound')
+				.addChoice('Events', 'Events')
+				.addChoice('Fundraising', 'Fundraising')
+				.addChoice('Outreach', 'Outreach')
+				.addChoice('Leadership', 'Leadership')
+				.addChoice('Workshops', 'Workshops')
+				.addChoice('Open Lab Hours', 'Open Lab Hours')
+				.addChoice('General', 'General')),
+				
 	async execute(interaction) {
 		await new Promise((resolve) => {
 			fs.createReadStream('google/events.csv')

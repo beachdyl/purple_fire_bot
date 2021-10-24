@@ -41,7 +41,7 @@ module.exports = {
 		for (event of events) {
 			if (i > 9) {
 				if (event_embeds.length !== 0) break;
-				await interaction.reply('No events found!');
+				interaction.reply('No events found!');
 				break;
 			}
 			if (section !== event[1] && section !== '') continue;
