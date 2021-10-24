@@ -13,6 +13,7 @@ module.exports = {
 			.setDescription('I am here to help out with a few of the simple tasks around here. I\'m still learning, so please, have some patience.')
 			.addField('Developer', 'This bot is being developed by Dylan Bowerman (@beachdyl) and Dylan MacAllaster.', true)
 			.addField('Problem?', 'Did I make a mistake? No worries, just tell a Dylan.', true)
+			.addField('Open Source', 'You can find the source code at https://github.com/beachdyl/purple_fire_bot/', false)
 			.addField('Similarity', 'Robo-Kathryn is a work of fiction. Any similarity to actual persons, living or dead, is purely coincidental.', false)
 			.setThumbnail('https://i.ibb.co/cDrSdS5/PF-Flame.png')
 			.setTimestamp();
