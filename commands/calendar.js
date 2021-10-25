@@ -29,7 +29,7 @@ module.exports = {
 		const section = interaction.options.getString('section');
 		const events = [];
 		const event_embeds = [];
-		console.log(section);
+		//console.log(section);
 		await new Promise((resolve) => {
 			fs.createReadStream('google/events.csv')
 				.pipe(csv({ headers: false }))

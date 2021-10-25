@@ -24,13 +24,13 @@ client.on('interactionCreate', async interaction => {
 
 	if (!command) return;
 
-	if (command === 'crash') client.user.setPresence({status: 'idle'});
+	if (interaction.commandName === 'crash') client.user.setPresence({status: 'idle'});
 
 	try {
 		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
-		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+		await interaction.reply({ content: 'There was an error while executing this command! Check the console.', ephemeral: true });
 	}
 });
 
