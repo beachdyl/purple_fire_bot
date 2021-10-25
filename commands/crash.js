@@ -13,6 +13,7 @@ module.exports = {
 					.setLabel('Primary')
 					.setStyle('PRIMARY'),
 			);
+		client.user.setPresence({status: 'idle'});
 		await interaction.reply({ content: 'Crashing now! Hopefully, I\'ll be back soon.\n**o7**' });
 		await interaction.reply({ content: '', components: [row] });
 	},

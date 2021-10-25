@@ -24,6 +24,8 @@ client.on('interactionCreate', async interaction => {
 
 	if (!command) return;
 
+	if (command === 'crash') client.user.setPresence({status: 'online'});
+
 	try {
 		await command.execute(interaction);
 	} catch (error) {
@@ -35,6 +37,10 @@ client.on('interactionCreate', async interaction => {
 client.on('interactionCreate', interaction => {
 	if (!interaction.isButton()) return;
 	console.log(interaction);
+});
+
+client.on('ready', () => {
+	client.user.setPresence({status: 'online'});
 });
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
