@@ -49,10 +49,10 @@ client.on('ready', () => {
 	client.user.setPresence({status: 'online'});
 
 	// Force the bot to crash after 1 hour
-	await new Promise((resolve) => {
+	new Promise((resolve) => {
 		setTimeout(resolve, 3600000); //
 	});
-	await command.execute(client.commands.get('crash'));
+	command.execute(client.commands.get('crash'));
 });
 
 // Register events from events directory
