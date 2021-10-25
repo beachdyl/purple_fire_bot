@@ -8,15 +8,18 @@ const { token, clientId, guildId } = require('./config.json');
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
+// Register commands from commands directory
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.data.name, command);
-	console.log(`${command.data.name} registered as command.`);
+	//console.log(`${command.data.name} registered as command.`);
+	console.log(commands)
 }
 
+// Process slash command interactions
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
 
@@ -30,19 +33,29 @@ client.on('interactionCreate', async interaction => {
 		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
-		await interaction.reply({ content: 'There was an error while executing this command! Check the console.', ephemeral: true });
+		await interaction.reply({ content: 'There was an error while executing this command! Check the console or alert a Dylan.', ephemeral: true });
 	}
 });
 
+// Process button interactions
 client.on('interactionCreate', interaction => {
 	if (!interaction.isButton()) return;
 	console.log(interaction);
 });
 
+// Run this once the bot is ready
 client.on('ready', () => {
+	// Set bot status to online
 	client.user.setPresence({status: 'online'});
+
+	// Force the bot to crash after 1 hour
+	await new Promise((resolve) => {
+		setTimeout(resolve, 3600000); //
+	});
+	await command.execute(client.commands.get('crash'));
 });
 
+// Register events from events directory
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
@@ -54,5 +67,5 @@ for (const file of eventFiles) {
 	}
 }
 
-// Login to Discord with your client's token
+// Login to Discord using the secret token
 client.login(token);
