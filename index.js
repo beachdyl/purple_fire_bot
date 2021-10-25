@@ -24,7 +24,7 @@ client.on('interactionCreate', async interaction => {
 
 	if (!command) return;
 
-	if (command === 'crash') client.user.setPresence({status: 'online'});
+	if (command === 'crash') client.user.setPresence({status: 'idle'});
 
 	try {
 		await command.execute(interaction);
