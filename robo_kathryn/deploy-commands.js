@@ -10,6 +10,7 @@ const errHandle = require ('./errorHandler.js')
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
+// Read from commands files
 const commands = [];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -25,6 +26,7 @@ try {
 
 const rest = new REST({ version: '9' }).setToken(token);
 
+// Deploy commands to server
 (async () => {
 	try {
 		console.log('Started refreshing application (/) commands.');
