@@ -4,6 +4,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { Client, Collection, Intents } = require('discord.js');
 const { token, clientId, guildId } = require('./config.json');
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
@@ -32,8 +33,7 @@ try {
 		client.commands.set(command.data.name, command);
 	}
 } catch (error) {
-	console.error(error);
-	fs.writeFileSync('./error.txt',`${error}`);
+	errHandle(error);
 }
 console.log(client.commands);
 
@@ -50,8 +50,7 @@ client.on('interactionCreate', async interaction => {
 	try {
 		await command.execute(interaction);
 	} catch (error) {
-		console.error(error);
-		fs.writeFile('./error.txt',`${error}`);
+		errHandle(error);
 		await interaction.reply({ content: 'There was an error while executing this command! Please alert a Dylan.', ephemeral: true });
 	}
 });
