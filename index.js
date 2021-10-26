@@ -15,9 +15,8 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.data.name, command);
-	//console.log(`${command.data.name} registered as command.`);
-	console.log(client.commands);
 }
+console.log(client.commands);
 
 // Process slash command interactions
 client.on('interactionCreate', async interaction => {
@@ -52,7 +51,7 @@ client.on('ready', () => {
 	new Promise((resolve) => {
 		setTimeout(resolve, 3600000); //
 	});
-	command.execute(client.commands.get('crash'));
+	crash.execute('');
 });
 
 // Register events from events directory
