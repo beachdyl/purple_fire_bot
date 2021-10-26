@@ -1,4 +1,4 @@
-robo_kathryn/node_modules
+node_modules
 .env
 robo_kathryn/config.json
 robo_kathryn/config2.json
