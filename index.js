@@ -16,7 +16,7 @@ for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.data.name, command);
 	//console.log(`${command.data.name} registered as command.`);
-	console.log(commands)
+	console.log(client.commands);
 }
 
 // Process slash command interactions
