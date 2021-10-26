@@ -4,8 +4,8 @@ const { MessageActionRow, MessageButton } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('crash')
-		.setDescription('Forces the robot to crash. Please do not use this unless you know what you\'re doing.'),
-	defaultPermission: false,
+		.setDescription('Forces the robot to crash. Please do not use this unless you know what you\'re doing.')
+		.setDefaultPermission(false),
 	async execute(interaction) {
 		const row = new MessageActionRow()
 			.addComponents(
