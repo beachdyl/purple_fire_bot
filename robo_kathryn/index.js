@@ -12,9 +12,15 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	client.commands.set(command.data.name, command);
+try {
+	for (const file of commandFiles) {
+		const command = require(`./commands/${file}`);
+		client.commands.set(command.data.name, command);
+	}
+} catch (error) {
+	console.error(error);
+	fs.writeFileSync('./error.txt',error);
+	process.exit(1);
 }
 console.log(client.commands);
 
@@ -32,7 +38,8 @@ client.on('interactionCreate', async interaction => {
 		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
-		await interaction.reply({ content: 'There was an error while executing this command! Check the console or alert a Dylan.', ephemeral: true });
+		fs.writeFile('./error.txt',error);
+		await interaction.reply({ content: 'There was an error while executing this command! Please alert a Dylan.', ephemeral: true });
 	}
 });
 
@@ -42,7 +49,7 @@ client.on('interactionCreate', interaction => {
 	console.log(interaction);
 });
 
-// Set the bot to online once it is ready
+// Set the bot to online status once it is ready
 client.on('ready', () => {
 	client.user.setPresence({status: 'online'});
 });
