@@ -42,16 +42,9 @@ client.on('interactionCreate', interaction => {
 	console.log(interaction);
 });
 
-// Run this once the bot is ready
+// Set the bot to online once it is ready
 client.on('ready', () => {
-	// Set bot status to online
 	client.user.setPresence({status: 'online'});
-
-	// Force the bot to crash after 1 hour
-	new Promise((resolve) => {
-		setTimeout(resolve, 3600000); //
-	});
-	client.commands.get('crash').execute('');
 });
 
 // Register events from events directory
@@ -66,10 +59,15 @@ for (const file of eventFiles) {
 	}
 }
 
+<<<<<<< HEAD:index.js
 <<<<<<< Updated upstream:index.js
 =======
 // Set and add command permissions
 const restartPermissions = [
+=======
+// Set and add command permissions
+const crashPermissions = [
+>>>>>>> 655d43d89b08fa2400c95bdea4f1d5096c8c3fd8:robo_kathryn/index.js
 	{
 		id: '581128269584138250',
 		type: 'USER',
@@ -81,8 +79,13 @@ const restartPermissions = [
 		permission: true,
 	},
 ];
+<<<<<<< HEAD:index.js
 //client.commands.get('restart').add({ command: client.commands.get('restart'), permissions: restartPermissions });
 
 >>>>>>> Stashed changes:robo_kathryn/index.js
+=======
+//client.commands.get('crash').add({ command: client.commands.get('crash'), permissions: crashPermissions });
+
+>>>>>>> 655d43d89b08fa2400c95bdea4f1d5096c8c3fd8:robo_kathryn/index.js
 // Login to Discord using the secret token
 client.login(token);
