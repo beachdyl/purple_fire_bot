@@ -26,7 +26,7 @@ client.on('interactionCreate', async interaction => {
 
 	if (!command) return;
 
-	if (interaction.commandName === 'crash') client.user.setPresence({status: 'idle'});
+	if (interaction.commandName === 'restart') client.user.setPresence({status: 'idle'});
 
 	try {
 		await command.execute(interaction);
@@ -66,5 +66,23 @@ for (const file of eventFiles) {
 	}
 }
 
+<<<<<<< Updated upstream:index.js
+=======
+// Set and add command permissions
+const restartPermissions = [
+	{
+		id: '581128269584138250',
+		type: 'USER',
+		permission: true,
+	},
+	{
+		id: '200316185445793792',
+		type: 'USER',
+		permission: true,
+	},
+];
+//client.commands.get('restart').add({ command: client.commands.get('restart'), permissions: restartPermissions });
+
+>>>>>>> Stashed changes:robo_kathryn/index.js
 // Login to Discord using the secret token
 client.login(token);
