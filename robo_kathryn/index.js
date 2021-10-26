@@ -5,7 +5,7 @@ const { Routes } = require('discord-api-types/v9');
 const { Client, Collection, Intents } = require('discord.js');
 const { token, clientId, guildId } = require('./config.json');
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
-const { errHandle } = require ('./errorHandler.js')
+const errHandle = require ('./errorHandler.js')
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
