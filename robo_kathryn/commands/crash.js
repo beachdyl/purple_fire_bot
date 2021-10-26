@@ -31,6 +31,5 @@ module.exports = {
 		await interaction.reply({ content: 'Crashing now! Hopefully, I\'ll be back soon.\n**o7**' });
 		await interaction.reply({ content: '', components: [row] });
 	},
-	Permissions: new Permissions()
-		.set({ fullPermissions }),
+	Permissions: { fullPermissions },
 };
