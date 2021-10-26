@@ -3,7 +3,7 @@ const fs = require('fs');
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 //errHandle function
-var errHandle = function(error) {
+var errHandle = function(error, client) {
 	console.error(error);
 	fs.writeFileSync('./error.txt',`${error}`);
 

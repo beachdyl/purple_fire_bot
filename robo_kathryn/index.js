@@ -20,7 +20,7 @@ try {
 		client.commands.set(command.data.name, command);
 	}
 } catch (error) {
-	errHandle(error);
+	errHandle(error, client);
 }
 console.log(client.commands);
 
@@ -37,7 +37,7 @@ client.on('interactionCreate', async interaction => {
 	try {
 		await command.execute(interaction);
 	} catch (error) {
-		errHandle(error);
+		errHandle(error, client);
 		await interaction.reply({ content: 'There was an error while executing this command! Please alert a Dylan.', ephemeral: true });
 	}
 });
@@ -53,9 +53,9 @@ client.on('ready', () => {
 	client.user.setPresence({status: 'online'});
 	const readyEmbed = new MessageEmbed()
 	.setColor('#00ff00')
-	.setTitle('I am back!')
+	.setTitle('Ready to rock and roll!')
 	.setAuthor('Robo-Kathryn', 'https://i.ibb.co/cDrSdS5/PF-Flame.png', 'https://purplefire.org')
-	.setDescription('I was asleep, but I am no longer asleep! All that to say: good morning!')
+	.setDescription('I was asleep, but I am no longer asleep! To make a long story short, ~~I put a bag of jellybeans~~ good morning!')
 	.setTimestamp();
 	client.channels.cache.get('770464638881497089').send({embeds: [readyEmbed] });
 });
