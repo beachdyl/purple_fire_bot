@@ -5,23 +5,10 @@ const { Routes } = require('discord-api-types/v9');
 const { Client, Collection, Intents } = require('discord.js');
 const { token, clientId, guildId } = require('./config.json');
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { errHandle } = require ('errorHandler.js')
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-
-function errHandle(error) {
-	console.error(error);
-	fs.writeFileSync('./error.txt',`${error}`);
-	const errorEmbed = new MessageEmbed()
-			.setColor('#ff0000')
-			.setTitle('I have handled an error!')
-			.setAuthor('Robo-Kathryn', 'https://i.ibb.co/cDrSdS5/PF-Flame.png', 'https://purplefire.org')
-			.setDescription('Something went wrong, and I am here to tell you about it. I managed to recover, but at what cost?')
-			.addField('Error', `${error}`, false)
-			.setThumbnail('https://i.ibb.co/cDrSdS5/PF-Flame.png')
-			.setTimestamp();
-	client.channels.cache.get('770464638881497089').send({embeds: [errorEmbed] });
-}
 
 // Register commands from commands directory
 client.commands = new Collection();
@@ -61,7 +48,7 @@ client.on('interactionCreate', interaction => {
 	console.log(interaction);
 });
 
-// Set the bot to online status once it is ready
+// Set the bot to online status once it is ready and report ready
 client.on('ready', () => {
 	client.user.setPresence({status: 'online'});
 	const readyEmbed = new MessageEmbed()
