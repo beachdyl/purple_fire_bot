@@ -59,15 +59,8 @@ for (const file of eventFiles) {
 	}
 }
 
-<<<<<<< HEAD:index.js
-<<<<<<< Updated upstream:index.js
-=======
 // Set and add command permissions
 const restartPermissions = [
-=======
-// Set and add command permissions
-const crashPermissions = [
->>>>>>> 655d43d89b08fa2400c95bdea4f1d5096c8c3fd8:robo_kathryn/index.js
 	{
 		id: '581128269584138250',
 		type: 'USER',
@@ -79,13 +72,8 @@ const crashPermissions = [
 		permission: true,
 	},
 ];
-<<<<<<< HEAD:index.js
+
 //client.commands.get('restart').add({ command: client.commands.get('restart'), permissions: restartPermissions });
 
->>>>>>> Stashed changes:robo_kathryn/index.js
-=======
-//client.commands.get('crash').add({ command: client.commands.get('crash'), permissions: crashPermissions });
-
->>>>>>> 655d43d89b08fa2400c95bdea4f1d5096c8c3fd8:robo_kathryn/index.js
 // Login to Discord using the secret token
 client.login(token);
