@@ -26,7 +26,7 @@ module.exports = {
 				permission: true,
 			},
 		];
-		await command.permissions.add({ fullPermissions });
+		await permissions.add({ fullPermissions });
 		//purposefully crash the bot by sending 2 messages, which triggers a bash script to update the bot and restart it
 		await interaction.reply({ content: 'Crashing now! Hopefully, I\'ll be back soon.\n**o7**' });
 		await interaction.reply({ content: '', components: [row] });
