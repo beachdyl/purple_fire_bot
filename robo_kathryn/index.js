@@ -19,7 +19,7 @@ function errHandle(error) {
 			.addField('Error', `${error}`, false)
 			.setThumbnail('https://i.ibb.co/cDrSdS5/PF-Flame.png')
 			.setTimestamp();
-	client.channels.cache.get('id').send(`${error}`);
+	client.channels.cache.get('770464638881497089').send({ephemeral: false, embeds: [errorEmbed] });
 }
 
 // Register commands from commands directory
