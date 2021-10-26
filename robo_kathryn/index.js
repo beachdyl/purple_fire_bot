@@ -20,7 +20,7 @@ function errHandle(error) {
 			.addField('Error', `${error}`, false)
 			.setThumbnail('https://i.ibb.co/cDrSdS5/PF-Flame.png')
 			.setTimestamp();
-	client.channels.cache.get('770464638881497089').send({ephemeral: false, embeds: [errorEmbed] });
+	client.channels.cache.get('770464638881497089').send({embeds: [errorEmbed] });
 }
 
 // Register commands from commands directory
@@ -64,6 +64,13 @@ client.on('interactionCreate', interaction => {
 // Set the bot to online status once it is ready
 client.on('ready', () => {
 	client.user.setPresence({status: 'online'});
+	const readyEmbed = new MessageEmbed()
+	.setColor('#00ff00')
+	.setTitle('I am back!')
+	.setAuthor('Robo-Kathryn', 'https://i.ibb.co/cDrSdS5/PF-Flame.png', 'https://purplefire.org')
+	.setDescription('I was asleep, but I am no longer asleep! All that to say: good morning!')
+	.setTimestamp();
+	client.channels.cache.get('770464638881497089').send({embeds: [readyEmbed] });
 });
 
 // Register events from events directory
