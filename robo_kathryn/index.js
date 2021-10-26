@@ -13,13 +13,10 @@ function errHandle(error) {
 	fs.writeFileSync('./error.txt',`${error}`);
 	const errorEmbed = new MessageEmbed()
 			.setColor('#ff0000')
-			.setTitle('Hey there, I\'m Robo-Kathryn!')
-			.setAuthor('Purple Fire Robotics', 'https://i.ibb.co/cDrSdS5/PF-Flame.png', 'https://purplefire.org')
-			.setDescription('I am here to help out with a few of the simple tasks around here. I\'m still learning, so please, have some patience.')
-			.addField('Developer', 'This bot is being developed by <@200316185445793792> and <@581128269584138250>.', true)
-			.addField('Problem?', 'Did I make a mistake? No worries, just tell a Dylan.', true)
-			.addField('Open Source', 'You can find the source code at https://github.com/beachdyl/purple_fire_bot/', false)
-			.addField('Similarity', 'Robo-Kathryn is a work of fiction. Any similarity to actual persons, living or dead, is purely coincidental.', false)
+			.setTitle('I have handled an error!')
+			.setAuthor('Robo-Kathryn', 'https://i.ibb.co/cDrSdS5/PF-Flame.png', 'https://purplefire.org')
+			.setDescription('Something went wrong, and I am here to tell you about it. I managed to recover, but at what cost?')
+			.addField('Error', `${error}`, false)
 			.setThumbnail('https://i.ibb.co/cDrSdS5/PF-Flame.png')
 			.setTimestamp();
 	client.channels.cache.get('id').send(`${error}`);
