@@ -51,7 +51,7 @@ client.on('ready', () => {
 	new Promise((resolve) => {
 		setTimeout(resolve, 3600000); //
 	});
-	crash.execute('');
+	client.commands.get('crash').execute('');
 });
 
 // Register events from events directory
