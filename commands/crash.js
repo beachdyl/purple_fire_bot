@@ -19,7 +19,7 @@ module.exports = {
 		.setName('crash')
 		.setDescription('Forces the robot to crash. Please do not use this unless you know what you\'re doing.')
 		.setDefaultPermission(false)
-		.setPermissions({ fullPermissions }),
+		.permissions.set({ fullPermissions }),
 	async execute(interaction) {
 		const row = new MessageActionRow()
 			.addComponents(
