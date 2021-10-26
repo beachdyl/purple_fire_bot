@@ -1,4 +1,4 @@
-// Require the necessary discord.js classes
+// Require the necessary files and modules
 const fs = require('fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
@@ -20,7 +20,6 @@ try {
 } catch (error) {
 	console.error(error);
 	fs.writeFileSync('./error.txt',error);
-	process.exit(1);
 }
 console.log(client.commands);
 
