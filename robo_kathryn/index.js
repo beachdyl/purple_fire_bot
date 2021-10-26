@@ -42,16 +42,9 @@ client.on('interactionCreate', interaction => {
 	console.log(interaction);
 });
 
-// Run this once the bot is ready
+// Set the bot to online once it is ready
 client.on('ready', () => {
-	// Set bot status to online
 	client.user.setPresence({status: 'online'});
-
-	// Force the bot to crash after 1 hour
-	new Promise((resolve) => {
-		setTimeout(resolve, 3600000); //
-	});
-	client.commands.get('crash').execute('');
 });
 
 // Register events from events directory
@@ -66,7 +59,8 @@ for (const file of eventFiles) {
 	}
 }
 
-const fullPermissions = [
+// Set and add command permissions
+const crashPermissions = [
 	{
 		id: '581128269584138250',
 		type: 'USER',
@@ -78,8 +72,7 @@ const fullPermissions = [
 		permission: true,
 	},
 ];
-
-//client.commands.get('crash').add({ command: client.commands.get('crash'), permissions: fullPermissions });
+//client.commands.get('crash').add({ command: client.commands.get('crash'), permissions: crashPermissions });
 
 // Login to Discord using the secret token
 client.login(token);
