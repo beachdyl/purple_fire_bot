@@ -19,6 +19,7 @@ module.exports = {
 		.setName('crash')
 		.setDescription('Forces the robot to crash. Please do not use this unless you know what you\'re doing.')
 		.setDefaultPermission(false),
+	Permissions: { fullPermissions },
 	async execute(interaction) {
 		const row = new MessageActionRow()
 			.addComponents(
@@ -31,5 +32,4 @@ module.exports = {
 		await interaction.reply({ content: 'Crashing now! Hopefully, I\'ll be back soon.\n**o7**' });
 		await interaction.reply({ content: '', components: [row] });
 	},
-	Permissions: { fullPermissions },
 };
