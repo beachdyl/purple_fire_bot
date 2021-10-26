@@ -16,7 +16,7 @@ try {
 	}
 } catch (error) {
 	console.error(error);
-	fs.writeFileSync('./error.txt',error);
+	fs.writeFileSync('./error.txt',`${error}`);
 }
 
 const rest = new REST({ version: '9' }).setToken(token);
@@ -33,6 +33,6 @@ const rest = new REST({ version: '9' }).setToken(token);
 		console.log('Successfully reloaded application (/) commands.');
 	} catch (error) {
 		console.error(error);
-		fs.writeFileSync('./error.txt',error);
+		fs.writeFileSync('./error.txt',`${error}`);
 	}
 })();

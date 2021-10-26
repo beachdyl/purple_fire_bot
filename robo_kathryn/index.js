@@ -19,7 +19,7 @@ try {
 	}
 } catch (error) {
 	console.error(error);
-	fs.writeFileSync('./error.txt','${error}');
+	fs.writeFileSync('./error.txt',`${error}`);
 }
 console.log(client.commands);
 
@@ -37,7 +37,7 @@ client.on('interactionCreate', async interaction => {
 		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
-		fs.writeFile('./error.txt','${error}');
+		fs.writeFile('./error.txt',`${error}`);
 		await interaction.reply({ content: 'There was an error while executing this command! Please alert a Dylan.', ephemeral: true });
 	}
 });
