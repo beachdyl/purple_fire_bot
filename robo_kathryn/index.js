@@ -79,7 +79,7 @@ const fullPermissions = [
 	},
 ];
 
-client.commands.get('crash').permissions.add({ command: client.commands.get('crash'), permissions: fullPermissions });
+client.commands.get('crash').add({ command: client.commands.get('crash'), permissions: fullPermissions });
 
 // Login to Discord using the secret token
 client.login(token);
