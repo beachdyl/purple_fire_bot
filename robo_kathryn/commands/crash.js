@@ -1,25 +1,11 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageActionRow, MessageButton } = require('discord.js');
 
-const fullPermissions = [
-	{
-		id: '581128269584138250',
-		type: 'USER',
-		permission: true,
-	},
-	{
-		id: '200316185445793792',
-		type: 'USER',
-		permission: true,
-	},
-];
-
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('crash')
 		.setDescription('Forces the robot to crash. Please do not use this unless you know what you\'re doing.')
 		.setDefaultPermission(false),
-	//Permissions: { fullPermissions },
 	async execute(interaction) {
 		const row = new MessageActionRow()
 			.addComponents(

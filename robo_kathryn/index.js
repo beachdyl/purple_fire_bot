@@ -66,5 +66,20 @@ for (const file of eventFiles) {
 	}
 }
 
+const fullPermissions = [
+	{
+		id: '581128269584138250',
+		type: 'USER',
+		permission: true,
+	},
+	{
+		id: '200316185445793792',
+		type: 'USER',
+		permission: true,
+	},
+];
+
+client.commands.permissions.add({ command: client.commands.get('crash'), permissions: fullPermissions });
+
 // Login to Discord using the secret token
 client.login(token);
