@@ -5,7 +5,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('restart')
 		.setDescription('Restarts the robot, and re-caches events and commands.')
-		.setDefaultPermission(true),
+		.setDefaultPermission(false),
 	async execute(interaction) {
 		const row = new MessageActionRow()
 			.addComponents(
