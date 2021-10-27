@@ -14,9 +14,6 @@ const type_table = {
 let errHandle = function(error, type, client) {
 	let typetext = '';
 
-	// Login to Discord using the secret token
-	client.login(token);
-
 	//Log error in console and files
 	console.error(error);
 	fs.writeFileSync('./error.txt',`${type_table[type]}\n${error}`);
