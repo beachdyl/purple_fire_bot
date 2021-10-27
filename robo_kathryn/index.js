@@ -24,7 +24,11 @@ try {
 		client.commands.set(command.data.name, command);
 	}
 } catch (error) {
-	errHandle(error, 1, client);
+	try {
+		errHandle(`Command registration of command named ${command.data.name}\n${error}`, 1, client);
+	} catch (error) {
+		errHandle(`Command registration of unknown command\n${error}`, 1, client);
+	}
 }
 //console.log(client.commands);
 
@@ -41,8 +45,16 @@ client.on('interactionCreate', async interaction => {
 	try {
 		await command.execute(interaction);
 	} catch (error) {
-		errHandle(`${interaction.commandName}\n${error}`, 1, client);
-		await interaction.reply({ content: 'There was an error while executing this command! Please alert a Dylan.', ephemeral: true });
+		try {
+			errHandle(`Interaction named ${interaction.commandName}\n${error}`, 1, client);
+			await interaction.reply({ content: 'There was an error while executing this command! Please alert a Dylan.', ephemeral: true });
+		} catch (error) {
+			try {
+				errHandle(`Error of interaction named ${interaction.commandName}\n${error}`, 5, client);
+			} catch (error) {
+				errHandle(`Error of interaction of unknown name\n${error}`, 5, client);
+			}
+		}
 	}
 });
 
@@ -52,9 +64,12 @@ client.on('interactionCreate', interaction => {
 	errHandle(interaction, 1, client);
 });
 
-// Set the bot to online status once it is ready and report ready
+// Do things once the bot is ready
 client.on('ready', () => {
+	// Set the bot status to online
 	client.user.setPresence({status: 'online'});
+
+	// Send a good morning embed
 	const readyEmbed = new MessageEmbed()
 	.setColor('#00ff00')
 	.setTitle('Ready to rock and roll!')
@@ -62,6 +77,12 @@ client.on('ready', () => {
 	.setDescription('I was asleep, but I am no longer asleep! To make a long story short, ~~I put a whole bag of jellybeans~~ good morning!')
 	.setTimestamp();
 	client.channels.cache.get('770464638881497089').send({embeds: [readyEmbed] });
+
+	// Check for persistent errors
+	try {
+		fs.accessSync('./persistError.txt');
+		errHandle(fs.readFileSync('./persistError.txt'), 7, client);
+	} catch {}
 });
 
 // Register events from events directory
@@ -92,7 +113,6 @@ const restartPermissions = [
 
 // Check for unhandled errors on each interaction
 client.on('interactionCreate', interaction => {
-	console.log('hey');
 	try {
 		fs.accessSync('./tempError.txt');
 		errHandle(fs.readFileSync('./tempError.txt'), 3, client);
