@@ -104,9 +104,13 @@ function listEvents(auth) {
 		const events = res.data.items;
 		if (events.length) {
 			// Try deleting old events.csv if it exists
-			try {fs.unlinkSync('google/events.csv');}
-			catch (error) {}
-			console.log('Old file deleted or didn\'t exist.');
+			try {
+				fs.unlinkSync('google/events.csv');
+				console.log('Old events file deleted.');
+			} catch (error) {
+				console.log('Old events file didn\'t exist.');
+			}
+			
 		
 			events.map((event, i) => {
 				// Format start and end times
@@ -142,10 +146,10 @@ function listEvents(auth) {
 				}];
 				// Write data to file
 				csvWriter.writeRecords(data);
-				console.log(`Event "${event.summary}" written to file.`);
 			});
+			console.log(`Events written to events file.`);
 		} else {
-			console.log('No upcoming events found.');
+			console.log('No upcoming events found to write to file.');
 		}
 	});
 }

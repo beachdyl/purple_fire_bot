@@ -1,9 +1,15 @@
-// Require the necessary discord.js classes
+// Require the necessary files and modules
 const fs = require('fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { Client, Collection, Intents } = require('discord.js');
 const { token, clientId, guildId } = require('./config.json');
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const errHandle = require ('./errorHandler.js')
+
+// Try deleting old errorTemp.txt if it exists
+try {fs.unlinkSync('./errorTemp.txt');}
+catch (error) {}
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
@@ -12,11 +18,19 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	client.commands.set(command.data.name, command);
+try {
+	for (const file of commandFiles) {
+		const command = require(`./commands/${file}`);
+		client.commands.set(command.data.name, command);
+	}
+} catch (error) {
+	try {
+		errHandle(`Command registration of command named ${command.data.name}\n${error}`, 1, client);
+	} catch (error) {
+		errHandle(`Command registration of unknown command\n${error}`, 1, client);
+	}
 }
-console.log(client.commands);
+//console.log(client.commands);
 
 // Process slash command interactions
 client.on('interactionCreate', async interaction => {
@@ -31,20 +45,44 @@ client.on('interactionCreate', async interaction => {
 	try {
 		await command.execute(interaction);
 	} catch (error) {
-		console.error(error);
-		await interaction.reply({ content: 'There was an error while executing this command! Check the console or alert a Dylan.', ephemeral: true });
+		try {
+			errHandle(`Interaction named ${interaction.commandName}\n${error}`, 1, client);
+			await interaction.reply({ content: 'There was an error while executing this command! Please alert a Dylan.', ephemeral: true });
+		} catch (error) {
+			try {
+				errHandle(`Error of interaction named ${interaction.commandName}\n${error}`, 5, client);
+			} catch (error) {
+				errHandle(`Error of interaction of unknown name\n${error}`, 5, client);
+			}
+		}
 	}
 });
 
 // Process button interactions
 client.on('interactionCreate', interaction => {
 	if (!interaction.isButton()) return;
-	console.log(interaction);
+	errHandle(interaction, 1, client);
 });
 
-// Set the bot to online once it is ready
+// Do things once the bot is ready
 client.on('ready', () => {
+	// Set the bot status to online
 	client.user.setPresence({status: 'online'});
+
+	// Send a good morning embed
+	const readyEmbed = new MessageEmbed()
+	.setColor('#00ff00')
+	.setTitle('Ready to rock and roll!')
+	.setAuthor('Robo-Kathryn', 'https://i.ibb.co/cDrSdS5/PF-Flame.png', 'https://purplefire.org')
+	.setDescription('I was asleep, but I am no longer asleep! To make a long story short, ~~I put a whole bag of jellybeans~~ **good morning**!')
+	.setTimestamp();
+	client.channels.cache.get('770464638881497089').send({embeds: [readyEmbed] });
+
+	// Check for persistent errors
+	try {
+		fs.accessSync('./persistError.txt');
+		errHandle(fs.readFileSync('./persistError.txt'), 7, client);
+	} catch {}
 });
 
 // Register events from events directory
@@ -72,6 +110,14 @@ const restartPermissions = [
 		permission: true,
 	},
 ];
+
+// Check for unhandled errors on each interaction
+client.on('interactionCreate', interaction => {
+	try {
+		fs.accessSync('./tempError.txt');
+		errHandle(fs.readFileSync('./tempError.txt'), 3, client);
+	} catch {}
+});
 
 //client.commands.get('restart').add({ command: client.commands.get('restart'), permissions: restartPermissions });
 
