@@ -49,7 +49,7 @@ client.on('interactionCreate', async interaction => {
 // Process button interactions
 client.on('interactionCreate', interaction => {
 	if (!interaction.isButton()) return;
-	console.log(interaction);
+	errHandle(interaction, 1, client);
 });
 
 // Set the bot to online status once it is ready and report ready
@@ -92,8 +92,10 @@ const restartPermissions = [
 
 // Check for unhandled errors on each interaction
 client.on('interactionCreate', interaction => {
+	console.log('hey');
 	try {
-		if (fs.open('./errorTemp.txt')) errHandle(fs.readFileSync('./errorTemp.txt'), 3, client);
+		fs.accessSync('./tempError.txt');
+		errHandle(fs.readFileSync('./tempError.txt'), 3, client);
 	} catch {}
 });
 
