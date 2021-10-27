@@ -21,7 +21,7 @@ try {
 		commands.push(command.data.toJSON());
 	}
 } catch (error) {
-	errHandle(error, client);
+	errHandle(error, 2, client);
 }
 
 const rest = new REST({ version: '9' }).setToken(token);
@@ -38,6 +38,6 @@ const rest = new REST({ version: '9' }).setToken(token);
 
 		console.log('Successfully reloaded application (/) commands.');
 	} catch (error) {
-		errHandle(error, client);
+		errHandle(error, 2, client);
 	}
 })();

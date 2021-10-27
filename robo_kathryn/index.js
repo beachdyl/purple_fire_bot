@@ -7,6 +7,10 @@ const { token, clientId, guildId } = require('./config.json');
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const errHandle = require ('./errorHandler.js')
 
+// Try deleting old errorTemp.txt if it exists
+try {fs.unlinkSync('./errorTemp.txt');}
+catch (error) {}
+
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -20,9 +24,9 @@ try {
 		client.commands.set(command.data.name, command);
 	}
 } catch (error) {
-	errHandle(error, client);
+	errHandle(error, 1, client);
 }
-console.log(client.commands);
+//console.log(client.commands);
 
 // Process slash command interactions
 client.on('interactionCreate', async interaction => {
@@ -37,7 +41,7 @@ client.on('interactionCreate', async interaction => {
 	try {
 		await command.execute(interaction);
 	} catch (error) {
-		errHandle(error, client);
+		errHandle(`${interaction.commandName}\n${error}`, 1, client);
 		await interaction.reply({ content: 'There was an error while executing this command! Please alert a Dylan.', ephemeral: true });
 	}
 });
@@ -85,6 +89,11 @@ const restartPermissions = [
 		permission: true,
 	},
 ];
+
+// Check for unhandled errors on each interaction
+client.on('interactionCreate', interaction => {
+	if (fs.exists('./errorTemp.txt')) errHandle(fs.readFileSync('./errorTemp.txt'), 3, client);
+});
 
 //client.commands.get('restart').add({ command: client.commands.get('restart'), permissions: restartPermissions });
 
