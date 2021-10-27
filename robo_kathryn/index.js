@@ -92,7 +92,9 @@ const restartPermissions = [
 
 // Check for unhandled errors on each interaction
 client.on('interactionCreate', interaction => {
-	if (fs.exists('./errorTemp.txt')) errHandle(fs.readFileSync('./errorTemp.txt'), 3, client);
+	try {
+		if (fs.open('./errorTemp.txt')) errHandle(fs.readFileSync('./errorTemp.txt'), 3, client);
+	} catch {}
 });
 
 //client.commands.get('restart').add({ command: client.commands.get('restart'), permissions: restartPermissions });

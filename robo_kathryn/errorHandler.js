@@ -8,6 +8,7 @@ const type_table = {
 	1: 'Logged in',
 	2: 'Prior to login',
 	3: 'From file',
+	4: 'Recursive'
 };
 
 //errHandle function
@@ -15,11 +16,13 @@ let errHandle = function(error, type, client) {
 	let typetext = '';
 
 	//Log error in console and files
-	console.error(error);
+	console.error(`Error Handled (${type_table[type]}):\n${error}`);
 	fs.writeFileSync('./error.txt',`${type_table[type]}\n${error}`);
 
-	if (type === 2) fs.writeFileSync('./errorTemp.txt',`${type_table[type]}\n${error}`);
-	if (type === 3) fs.unlinkSync('./errorTemp.txt');
+	if (type === 2) fs.writeFile('./errorTemp.txt',`${type_table[type]}\n${error}`, (err) => {
+		errHandle(err, 4, client);
+	});
+	if (type === 3) fs.unlink('./errorTemp.txt');
 
 	const errorEmbed = new MessageEmbed()
 		.setColor('#ff0000')
@@ -31,7 +34,7 @@ let errHandle = function(error, type, client) {
 		.setThumbnail('https://i.ibb.co/cDrSdS5/PF-Flame.png')
 		.setTimestamp();
 
-	if (type !== 2) client.channels.cache.get('770464638881497089').send({embeds: [errorEmbed] });
+	if (type !== 2 && type !== 4) client.channels.cache.get('770464638881497089').send({embeds: [errorEmbed] });
 
 };
 
