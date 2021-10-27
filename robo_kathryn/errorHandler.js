@@ -63,7 +63,7 @@ let errHandle = function(error, type, client) {
 		.setThumbnail('https://i.ibb.co/cDrSdS5/PF-Flame.png')
 		.setTimestamp();
 
-	// DO your best to deliver or log the error(s)
+	// Do your best to deliver or log the error(s)
 	try {
 		if (type !== 2 && type !== 4 && type !== 6 && type !== 7) {
 			client.channels.cache.get('770464638881497089').send({embeds: [errorEmbed] });
