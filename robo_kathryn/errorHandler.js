@@ -19,9 +19,7 @@ let errHandle = function(error, type, client) {
 	console.error(`Error Handled (${type_table[type]}):\n${error}`);
 	fs.writeFileSync('./error.txt',`${type_table[type]}\n${error}`);
 
-	if (type === 2) fs.writeFile('./errorTemp.txt',`${type_table[type]}\n${error}`, (err) => {
-		errHandle(err, 4, client);
-	});
+	if (type === 2) fs.copyFileSync('./error.txt',`./errorTemp.txt`);
 	if (type === 3) fs.unlink('./errorTemp.txt');
 
 	const errorEmbed = new MessageEmbed()
