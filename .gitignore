@@ -2,9 +2,9 @@ node_modules
 .env
 robo_kathryn/config.json
 robo_kathryn/config2.json
-robo_kathryn/google/credentials.json
-robo_kathryn/google/token.json
 .vs
 robo_kathryn/google/events.csv
 robo_kathryn/google/Credentials.json
 robo_kathryn/google/token.json
+error.txt
+errorTemp.txt
