@@ -4,8 +4,8 @@ const { MessageActionRow, MessageButton } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('restart')
-		.setDescription('Restarts the robot, and re-caches events and commands.')
-		.setDefaultPermission(false),
+		.setDescription('Restarts the robot and recaches events and commands.')
+		.setDefaultPermission(true),
 	async execute(interaction) {
 		const row = new MessageActionRow()
 			.addComponents(
