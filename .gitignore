@@ -1,4 +1,4 @@
-robo_kathryn/node_modules
+node_modules
 .env
 robo_kathryn/config.json
 robo_kathryn/config2.json
@@ -8,3 +8,4 @@ robo_kathryn/google/token.json
 robo_kathryn/google/events.csv
 robo_kathryn/google/Credentials.json
 robo_kathryn/google/token.json
+robo_kathryn/error.txt
