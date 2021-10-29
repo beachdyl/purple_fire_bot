@@ -48,6 +48,6 @@ module.exports = {
 			);
 
 		if (event.embed) await interaction.reply({ ephemeral: false, embeds: embed, components: [row] });
-		else await interaction.reply({ ephemeral: true, content: 'No events were found', components: [row] });
+		else await interaction.reply({ ephemeral: true, content: `No results found for: ${searchString}`, components: [row] });
 	}
 }
