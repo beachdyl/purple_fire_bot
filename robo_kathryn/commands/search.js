@@ -10,7 +10,7 @@ module.exports = {
 		.addStringOption(option =>
 			option.setName('meeting')
 				.setDescription('The string you want to search meeting titles for')
-				.setRequired(false)),
+				.setRequired(true)),
 
 	async execute(interaction) {
 		const events = [];
