@@ -9,3 +9,6 @@ robo_kathryn/google/events.csv
 robo_kathryn/google/Credentials.json
 robo_kathryn/google/token.json
 robo_kathryn/error.txt
+
+robo_kathryn/tempError.txt
+robo_kathryn/persistError.txt
