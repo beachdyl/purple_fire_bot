@@ -24,7 +24,7 @@ module.exports = {
 		});
 
 		for (event of events) {
-			if (event[2].search(searchString) == -1) continue;
+			if (!event[2].includes(searchString)) continue;
 			embed.setColor(`${event[7]}`)
 				//.setThumbnail('https://i.ibb.co/cDrSdS5/PF-Flame.png')
 				.setTitle(event[2])
