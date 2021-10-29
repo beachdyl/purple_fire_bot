@@ -71,7 +71,7 @@ module.exports = {
 			);
 
 		if (event_embeds.length === 0) 
-			await interaction.reply({content:'This section has no events coming up.', components: [row]});
+			await interaction.reply({ ephemeral: true, content:'This section has no events coming up.', components: [row]});
 		else
 			await interaction.reply({ephemeral: false, embeds: event_embeds, components: [row] });
 	},
