@@ -14,7 +14,7 @@ module.exports = {
 
 	async execute(interaction) {
 		const events = [];
-		const searchString = interaction.option.getString('meeting');
+		const searchString = interaction.options.getString('meeting');
 		const embed = new MessageEmbed();
 		await new Promise((resolve) => {
 			fs.createReadStream('google/events.csv')
