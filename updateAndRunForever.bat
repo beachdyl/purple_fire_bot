@@ -1,4 +1,4 @@
 cd robo_kathryn
-..\updateAndSetup.bash
+../updateAndSetup.bash
 node .
-..\updateAndRunForever.bat
+../updateAndRunForever.bat
