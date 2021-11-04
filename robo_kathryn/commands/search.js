@@ -24,7 +24,7 @@ module.exports = {
 		});
 
 		for (event of events) {
-			if (!event[2].includes(searchString)) continue;
+			if (!event[2].toUpperCase().includes(searchString.toUpperCase())) continue;
 			embed.setColor(`${event[7]}`)
 				//.setThumbnail('https://i.ibb.co/cDrSdS5/PF-Flame.png')
 				.setTitle(event[2])
@@ -37,6 +37,7 @@ module.exports = {
 			if (event[4]) {
 				embed.addField('Location', event[4], true);
 			}
+			break;
 		}
 
 		const row = new MessageActionRow()
@@ -47,7 +48,7 @@ module.exports = {
 					.setStyle('LINK'),
 			);
 
-		if (event.embed) await interaction.reply({ ephemeral: false, embeds: embed, components: [row] });
+		if (embed) await interaction.reply({ ephemeral: false, embeds: embed, components: [row] });
 		else await interaction.reply({ ephemeral: true, content: `No results found for: ${searchString}`, components: [row] });
 	}
 }
