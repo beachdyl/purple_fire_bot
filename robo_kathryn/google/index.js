@@ -43,7 +43,7 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar.events.readonly'];
 const TOKEN_PATH = 'google/token.json';
 
 // Load credentials from a credentials.json
-fs.readFile('google/credentials.json', (err, content) => {
+fs.readFile('google/Credentials.json', (err, content) => {
 	if (err) return console.log('Error loading client secret file:', err);
 	// If unsuccessful, execute an authorization with Google API
 	authorize(JSON.parse(content), listEvents);
