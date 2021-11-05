@@ -8,7 +8,9 @@ module.exports = {
 		.setDescription('Restarts the robot, and re-caches events and commands.')
 		.setDefaultPermission(true),
 	async execute(interaction) {
-		script = exec('pwd');
+		await interaction.reply({ content: 'Restarting now! Hopefully, I\'ll be back soon.\n**o7**' });
+
+		script = exec('../scripts/killRestart.sh || ../killRestart.sh');
 		// what to do for data coming from the standard out
 		script.stdout.on('data', function(data){
 			console.log(data.toString());
@@ -22,6 +24,6 @@ module.exports = {
 			console.log('program ended with code: ' + code);
 		});
 		//purposefully crash the bot by sending 2 messages, which then triggers a script to update the bot and restart it
-		await interaction.reply({ content: 'Restarting now! Hopefully, I\'ll be back soon.\n**o7**' });
+
 	},
 };
