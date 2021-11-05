@@ -12,5 +12,5 @@ then
 else
 	cd /srv/shared/rk/files
 	git pull
-	scripts/run.bash
+	scripts/run.bash 1&2> log_out.txt &
 fi
