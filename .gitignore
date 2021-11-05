@@ -10,6 +10,7 @@ robo_kathryn/google/Credentials.json
 robo_kathryn/google/token.json
 robo_kathryn/error.txt
 robo_kathryn/tempError.txt
+nohup.out
 robo_kathryn/persistError.txt
 nohup.out
 log_out.txt

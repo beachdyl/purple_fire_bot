@@ -11,7 +11,8 @@ const type_table = {
 	4: 'Recursive',
 	5: 'Erring error',
 	6: 'Infinitely recursive',
-	7: 'From persistent file'
+	7: 'From persistent file',
+	8: 'Called restart'
 };
 const color_table = {
 	1: '#ffff00',
@@ -20,7 +21,8 @@ const color_table = {
 	4: '#ff0000',
 	5: '#ff5500',
 	6: '#ff0000',
-	7: '#ff0000'
+	7: '#ff0000',
+	8: '#55ff00'
 };
 
 //errHandle function
@@ -29,7 +31,7 @@ let errHandle = function(error, type, client) {
 
 	//Log error in console and files
 	console.error(`Error Handled (${type_table[type]}):\n${error}`);
-	fs.writeFileSync('./error.txt',`${type_table[type]}\n${error}`);
+	if (type !== 8) fs.writeFileSync('./error.txt',`${type_table[type]}\n${error}`);
 
 	if (type === 2 || type === 4 || type === 6) {
 		fs.appendFileSync('./tempError.txt',`${type_table[type]}\n${error}`);

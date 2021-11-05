@@ -40,7 +40,11 @@ client.on('interactionCreate', async interaction => {
 
 	if (!command) return;
 
-	if (interaction.commandName === 'restart') client.user.setPresence({status: 'idle'});
+	// If interaction is restart command, do things
+	if (interaction.commandName === 'restart') {
+		client.user.setPresence({status: 'idle'});
+		errHandle(`Requested restart`, 8, client)
+	}
 
 	try {
 		await command.execute(interaction);
