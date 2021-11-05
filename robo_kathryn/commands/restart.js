@@ -24,4 +24,4 @@ module.exports = {
 			console.log('program ended with code: ' + code);
 		});
 	},
-};
+}
