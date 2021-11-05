@@ -10,7 +10,7 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.reply({ content: 'Restarting now! Hopefully, I\'ll be back soon.\n**o7**' });
 
-		script = exec('../scripts/killRestart.sh || ../killRestart.sh');
+		script = exec('cd ..; scripts/killRestart.sh || ./killRestart.sh');
 		// what to do for data coming from the standard out
 		script.stdout.on('data', function(data){
 			console.log(data.toString());
