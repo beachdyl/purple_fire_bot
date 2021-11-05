@@ -22,7 +22,7 @@ const color_table = {
 	5: '#ff5500',
 	6: '#ff0000',
 	7: '#ff0000',
-	8: '#55ff00'
+	8: '#88ff00'
 };
 
 //errHandle function
