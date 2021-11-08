@@ -23,6 +23,14 @@ module.exports = {
 				.on('end', () => setTimeout(resolve, 1));
 		});
 
+		const row = new MessageActionRow()
+			.addComponents(
+				new MessageButton()
+					.setLabel('Open the Calendar')
+					.setURL('https://calendar.google.com/calendar/embed?src=5r67hb19jke4qk7jkeftov91f8%40group.calendar.google.com&ctz=America%2FNew_York')
+					.setStyle('LINK'),
+			);
+
 		for (event of events) {
 			if (!event[2].toUpperCase().includes(searchString.toUpperCase())) continue;
 			embed.setColor(`${event[7]}`)
@@ -37,18 +45,11 @@ module.exports = {
 			if (event[4]) {
 				embed.addField('Location', event[4], true);
 			}
+
+			await interaction.reply({ embeds: embed, components: [row] })
 			break;
 		}
 
-		const row = new MessageActionRow()
-			.addComponents(
-				new MessageButton()
-					.setLabel('Open the Calendar')
-					.setURL('https://calendar.google.com/calendar/embed?src=5r67hb19jke4qk7jkeftov91f8%40group.calendar.google.com&ctz=America%2FNew_York')
-					.setStyle('LINK'),
-			);
-
-		if (embed) await interaction.reply({ ephemeral: false, embeds: embed, components: [row] });
-		else await interaction.reply({ ephemeral: true, content: `No results found for: ${searchString}`, components: [row] });
+		
 	}
 }
