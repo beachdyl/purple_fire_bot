@@ -64,10 +64,8 @@ function authorize(credentials, callback) {
 	fs.readFile(TOKEN_PATH, (err, token) => {
 		if (err) return getAccessToken(oAuth2Client, callback);
 		const { expiry_date } = require('./token.json');
-		console.error(expiry_date);
 		var d = new Date();
 		var nowTime = (d.getTime() - d.getMilliseconds());
-		console.error(nowTime)
 		if (expiry_date < nowTime) {
 			errHandle(`Expired google auth token`, 2, client);
 		};
