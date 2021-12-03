@@ -37,7 +37,9 @@ module.exports = {
 				filePresent = false;
 				return new Error('The events file does not exist!');
 			};
+		});
 
+		if (filePresent) {
 			// Read the file
 			filePresent = true;
 			await new Promise((resolve) => {
@@ -46,7 +48,7 @@ module.exports = {
 					.on('data', (data) => events.push(data))
 					.on('end', () => setTimeout(resolve, 1));
 			});
-		});
+		};
 		
 		let i = 0;
 		for (event of events) {
