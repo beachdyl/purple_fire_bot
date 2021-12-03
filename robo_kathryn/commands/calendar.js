@@ -29,7 +29,7 @@ module.exports = {
 		const section = interaction.options.getString('section');
 		const events = [];
 		const event_embeds = [];
-		let filePresent;
+		let filePresent = true;
 
 		// Check if file exists before attempting to read it
 		fs.readFile('google/events.csv', (err) => {
@@ -37,6 +37,7 @@ module.exports = {
 				filePresent = false;
 				return new Error('The events file does not exist!');
 			};
+
 			// Read the file
 			filePresent = true;
 			new Promise((resolve) => {
