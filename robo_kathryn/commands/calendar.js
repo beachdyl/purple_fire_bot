@@ -29,14 +29,24 @@ module.exports = {
 		const section = interaction.options.getString('section');
 		const events = [];
 		const event_embeds = [];
-		//console.log(section);
-		await new Promise((resolve) => {
-			fs.createReadStream('google/events.csv')
-				.pipe(csv({ headers: false }))
-				.on('data', (data) => events.push(data))
-				.on('end', () => setTimeout(resolve, 1));
-		});
+		let filePresent;
 
+		// Check if file exists before attempting to read it
+		fs.readFile('google/events.csv', (err) => {
+			if (err) {
+				filePresent = false;
+				return new Error('The events file does not exist!');
+			};
+			// Read the file
+			filePresent = true;
+			new Promise((resolve) => {
+				fs.createReadStream('google/events.csv')
+					.pipe(csv({ headers: false }))
+					.on('data', (data) => events.push(data))
+					.on('end', () => setTimeout(resolve, 1));
+			});
+		});
+		
 		let i = 0;
 		for (event of events) {
 			if (i > 4) break;
@@ -70,10 +80,15 @@ module.exports = {
 					.setStyle('LINK'),
 			);
 
-		if (event_embeds.length === 0) 
-			await interaction.reply({content:'This section has no events coming up.', components: [row]});
-		else
-			await interaction.reply({ephemeral: false, embeds: event_embeds, components: [row] });
+		if (filePresent) {
+			if (event_embeds.length === 0) {
+				await interaction.reply({content:'No events were found with your criteria.', components: [row]});
+			} else {
+				await interaction.reply({ephemeral: false, embeds: event_embeds, components: [row] });
+			};
+		} else {
+			throw new Error('The events file does not exist!');
+		};
 	},
 };
 
