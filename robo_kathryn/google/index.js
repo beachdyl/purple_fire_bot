@@ -2,7 +2,12 @@
 const fs = require('fs');
 const readline = require('readline');
 const { google } = require('googleapis');
+const errHandle = require ('../errorHandler.js');
+const { Client, Intents } = require('discord.js');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+
+// Create a new client instance
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 // Establish tables for use later
 const csvWriter = createCsvWriter({
@@ -58,6 +63,14 @@ function authorize(credentials, callback) {
 	// Check if token already exists
 	fs.readFile(TOKEN_PATH, (err, token) => {
 		if (err) return getAccessToken(oAuth2Client, callback);
+		const { expiry_date } = require('./token.json');
+		console.error(expiry_date);
+		var d = new Date();
+		var nowTime = (d.getTime() - d.getMilliseconds());
+		console.error(nowTime)
+		if (expiry_date < nowTime) {
+			errHandle(`Expired google auth token`, 2, client);
+		};
 		oAuth2Client.setCredentials(JSON.parse(token));
 		callback(oAuth2Client);
 	});
