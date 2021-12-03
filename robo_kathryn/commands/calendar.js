@@ -32,7 +32,7 @@ module.exports = {
 		let filePresent = true;
 
 		// Check if file exists before attempting to read it
-		fs.readFile('google/events.csv', (err) => {
+		fs.readFile('google/events.csv', (err, cont) => {
 			if (err) {
 				filePresent = false;
 				return new Error('The events file does not exist!');
@@ -40,7 +40,7 @@ module.exports = {
 
 			// Read the file
 			filePresent = true;
-			new Promise((resolve) => {
+			await new Promise((resolve) => {
 				fs.createReadStream('google/events.csv')
 					.pipe(csv({ headers: false }))
 					.on('data', (data) => events.push(data))
