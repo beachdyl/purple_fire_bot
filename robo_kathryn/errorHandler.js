@@ -1,6 +1,6 @@
 // Require the necessary files and modules
 const fs = require('fs');
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { token, clientId, guildId } = require('./config.json');
 
 // Define error types
