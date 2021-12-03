@@ -5,7 +5,7 @@ const { Routes } = require('discord-api-types/v9');
 const { Client, Collection, Intents } = require('discord.js');
 const { token, clientId, guildId } = require('./config.json');
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
-const errHandle = require ('./errorHandler.js')
+const errHandle = require('./errorHandler.js')
 
 // Try deleting old errorTemp.txt if it exists
 try {fs.unlinkSync('./errorTemp.txt');}
@@ -48,6 +48,7 @@ client.on('interactionCreate', async interaction => {
 
 	try {
 		await command.execute(interaction);
+		
 	} catch (error) {
 		try {
 			errHandle(`Interaction named ${interaction.commandName}\n${error}`, 1, client);
@@ -122,8 +123,6 @@ client.on('interactionCreate', interaction => {
 		errHandle(fs.readFileSync('./tempError.txt'), 3, client);
 	} catch {}
 });
-
-//client.commands.get('restart').add({ command: client.commands.get('restart'), permissions: restartPermissions });
 
 // Login to Discord using the secret token
 client.login(token);
